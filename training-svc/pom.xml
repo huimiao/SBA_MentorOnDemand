@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.ibm.fsd.mod</groupId>
     <artifactId>training-svc</artifactId>
-    <version>0.1</version>
+    <version>1.0</version>
     <name>training-svc</name>
     <description>Mentor On Demand - Training Microservice</description>
 
