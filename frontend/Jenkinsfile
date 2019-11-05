@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+    environment {
+	  GIT_URL = "git@github.com:huimiao/FSD.git"
+		GIT_CRED = "0175370e-5e36-457f-8d4a-a4adff3327f3"
+		DOCKER_REPO="registry.cn-hangzhou.aliyuncs.com/huimiao/front-end"
+		DOCKER_REG="https://registry.cn-hangzhou.aliyuncs.com"
+		DOCKER_REG_KEY = "331a6a07-264c-4863-b96d-65384d942cd7"
+		dockerImage = ''
+    }
+    stages {
+
+    	stage('CheckOut Code'){
+         	steps{
+            	checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: GIT_CRED, url: GIT_URL]]])
+            	}
+              }
+        stage('Angular Build'){
+        	steps{
+              sh 'cd SBA_MentorOnDemand/frontend/ && mkdir -p server/public'
+              sh 'cd SBA_MentorOnDemand/frontend/ && pwd'
+              sh 'cd SBA_MentorOnDemand/frontend/ && npm install'
+        	  sh 'cd SBA_MentorOnDemand/frontend/ && npm run ng build --configuration=production'
+        	}
+
+        }
+
+        stage('Building image') {
+          steps{
+	        script {
+	           docker.withRegistry( DOCKER_REG, DOCKER_REG_KEY ) {
+	               dockerImage = docker.build(DOCKER_REPO + ":$BUILD_NUMBER", "./SBA_MentorOnDemand/frontend/")
+	           }
+	        }
+	      }
+	    }
+	    stage('Push Image') {
+      steps{
+        script {
+		   docker.withRegistry( DOCKER_REG, DOCKER_REG_KEY ) {
+		            dockerImage.push()
+		          }
+		        }
+		      }
+		}
+   }
+}

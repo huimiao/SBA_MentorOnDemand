@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
+  application:
+    name: eureka-server
+server:
+  port: ${EUREKA_PORT}
+
+---
+spring:
+  profiles: prod
+  application:
+    name: eureka-server
+server:
+  port: ${EUREKA_PORT}

@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    url: ${TECHNOLOGY_DS_URL}
+    username: ${TECHNOLOGY_DS_USERID}
+    password: ${TECHNOLOGY_DS_PASSWORD}
+    driver-class-name: com.mysql.jdbc.Driver
+    data: classpath:/import.sql
+    initialization-mode: always
+  profiles: dev
+  jpa:
+    hibernate:
+      ddl-auto: update
+      database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}
+    register-with-eureka: true
+    fetch-registry: true
+logging:
+  level:
+    com:
+      ibm:
+        fsd:
+          mod: debug
+---
+spring:
+  datasource:
+    url: ${TECHNOLOGY_DS_URL}
+    username: ${TECHNOLOGY_DS_USERID}
+    password: ${TECHNOLOGY_DS_PASSWORD}
+    driver-class-name: com.mysql.jdbc.Driver
+    data: classpath:/import.sql
+    initialization-mode: always
+  profiles: prod
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}
+    register-with-eureka: true
+    fetch-registry: true
+logging:
+  level:
+    com:
+      ibm:
+        fsd:
+          mod: debug
