@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: technology-svc
-          image: registry.cn-hangzhou.aliyuncs.com/huimiao/technology-svc:latest
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/technology-svc:10
           ports:
             - name: http-port
               containerPort: 80

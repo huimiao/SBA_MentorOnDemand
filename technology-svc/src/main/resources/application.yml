@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: technology
   datasource:
     url: ${TECHNOLOGY_DS_URL}
     username: ${TECHNOLOGY_DS_USERID}
@@ -17,6 +15,7 @@ spring:
 eureka:
   instance:
     instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
   client:
     service-url:
       defaultZone: ${EUREKA_URL}
@@ -29,9 +28,6 @@ logging:
         fsd:
           mod: debug
 ---
-spring:
-  application:
-    name: technology
   datasource:
     url: ${TECHNOLOGY_DS_URL}
     username: ${TECHNOLOGY_DS_USERID}
@@ -48,6 +44,7 @@ spring:
 eureka:
   instance:
     instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
   client:
     service-url:
       defaultZone: ${EUREKA_URL}
