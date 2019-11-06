@@ -3,6 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: mysql-svc
+  namespace: sba
 spec:
   type: ClusterIP
   ports:
@@ -14,6 +15,7 @@ kind: Endpoints
 apiVersion: v1
 metadata:
   name: mysql-svc
+  namespace: sba
 subsets:
   - addresses:
       - ip: 192.168.0.100 # UPDATE TO YOUR MYSQL IP ADDRESS

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: eureka-server
-          image: registry.cn-hangzhou.aliyuncs.com/huimiao/gateway-zuul:1
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/gateway-zuul:latest
           ports:
             - name: http-port
               containerPort: 80
