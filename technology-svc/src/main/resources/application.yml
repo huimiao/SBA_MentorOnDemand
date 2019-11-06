@@ -28,6 +28,7 @@ logging:
         fsd:
           mod: debug
 ---
+spring:
   datasource:
     url: ${TECHNOLOGY_DS_URL}
     username: ${TECHNOLOGY_DS_USERID}
