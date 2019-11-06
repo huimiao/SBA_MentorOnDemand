@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: technology-svc
+  name: account-svc
   namespace: sba
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: technology-svc
+      app: account-svc
   template:
     metadata:
       labels:
-        app: technology-svc
+        app: account-svc
     spec:
       containers:
-        - name: technology-svc
-          image: registry.cn-hangzhou.aliyuncs.com/huimiao/technology-svc:{version}
+        - name: account-svc
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/account-svc:{version}
           ports:
             - name: http-port
               containerPort: 80
@@ -24,22 +24,22 @@ spec:
               value: prod
             - name: EUREKA_URL
               value: http://eureka-server/eureka
-            - name: TECHNOLOGY_DS_URL
-              value: jdbc:mysql://mysql-svc:3306/technology?useSSL=false
-            - name: TECHNOLOGY_DS_USERID
+            - name: ACCOUNT_DS_URL
+              value: jdbc:mysql://mysql-svc:3306/account?useSSL=false
+            - name: ACCOUNT_DS_USERID
               value: root
-            - name: TECHNOLOGY_DS_PASSWORD
+            - name: ACCOUNT_DS_PASSWORD
               value: rootpassword
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: technology
+  name: account
   namespace: sba
 spec:
   selector:
-    app: technology-svc
+    app: account-svc
   ports:
     - protocol: TCP
       port: 80
