@@ -1,58 +1,67 @@
 spring:
-  profiles: dev
-  datasource:
-    url: ${ACCOUNT_DS_URL}
-    username: ${ACCOUNT_DS_USERID}
-    password: ${ACCOUNT_DS_PASSWORD}
-    driver-class-name: com.mysql.jdbc.Driver
-    data: classpath:/import.sql
-    initialization-mode: never
-  jpa:
-    hibernate:
-      ddl-auto: update
-      database-platform: org.hibernate.dialect.MySQLDialect
-    show-sql: true
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${server.port}
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL}
-    register-with-eureka: true
-    fetch-registry: true
-logging:
-  level:
-    com:
-      ibm:
-        fsd:
-          mod: debug
+  profiles:
+    active: dev
+
 ---
 spring:
-  profiles: prod
+  profiles: dev
   datasource:
-    url: ${ACCOUNT_DS_URL}
-    username: ${ACCOUNT_DS_USERID}
-    password: ${ACCOUNT_DS_PASSWORD}
+    url: ${SCHOOL_DS_URL:jdbc:mysql://localhost:3306/account?useSSL=false}
+    username: ${SCHOOL_DS_USERID:root}
+    password: ${SCHOOL_DS_PASSWORD:rootpassword}
     driver-class-name: com.mysql.jdbc.Driver
-    data: classpath:/import.sql
-    initialization-mode: never
-eureka:
-  instance:
-    instance-id: ${spring.application.name}:${server.port}
-  client:
-    service-url:
-      defaultZone: ${EUREKA_URL}
-    register-with-eureka: true
-    fetch-registry: true
   jpa:
     hibernate:
       ddl-auto: validate
       database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
-
+  application:
+    name: batch
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}
+    register-with-eureka: true
+    fetch-registry: true
 logging:
   level:
     com:
       ibm:
         fsd:
           mod: debug
+server:
+  port: 9999
+
+---
+spring:
+  profiles: prod
+  datasource:
+    url: ${SCHOOL_DS_URL:jdbc:mysql://localhost:3306/account?useSSL=false}
+    username: ${SCHOOL_DS_USERID:root}
+    password: ${SCHOOL_DS_PASSWORD:rootpassword}
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+  application:
+    name: batch
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}
+    register-with-eureka: true
+    fetch-registry: true
+logging:
+  level:
+    com:
+      ibm:
+        fsd:
+          mod: debug
+server:
+  port: 80

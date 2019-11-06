@@ -47,7 +47,8 @@ public class AccountDetailsService {
 
     public UserDto getUserProfileWithoutSensitiveInfo(String username) {
         UserDto userDto = getUserDetail(username);
-        userDto.setPassword("xxxx");
+        if (userDto != null)
+            userDto.setPassword("xxxx");
 
         return userDto;
     }

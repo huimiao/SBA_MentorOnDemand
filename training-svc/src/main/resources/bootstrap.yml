@@ -16,4 +16,4 @@ spring:
     name: training
   profiles: prod
 server:
-  port: 8071
+  port: 80

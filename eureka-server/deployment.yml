@@ -15,17 +15,15 @@ spec:
     spec:
       containers:
         - name: eureka-server
-          image: registry.cn-hangzhou.aliyuncs.com/huimiao/eureka-server:8
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/eureka-server:latest
           ports:
             - name: http-port
-              containerPort: 8060
+              containerPort: 80
           env:
             - name: spring_profiles_active
               value: prod
             - name: EUREKA_URL
-              value: http://eureka-server:8060/eureka
-            - name: EUREKA_PORT
-              value: "8060"
+              value: http://eureka-server/eureka
 ---
 apiVersion: v1
 kind: Service
@@ -37,6 +35,7 @@ spec:
     app: eureka-server
   ports:
     - protocol: TCP
-      port: 8060
-      targetPort: 8060
+      port: 80
+      targetPort: 80
+      nodePort: 30002
   type: NodePort

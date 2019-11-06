@@ -8,7 +8,7 @@ spring:
   application:
     name: eureka-server
 server:
-  port: ${EUREKA_PORT}
+  port: 8060
 
 ---
 spring:
@@ -16,4 +16,4 @@ spring:
   application:
     name: eureka-server
 server:
-  port: ${EUREKA_PORT}
+  port: 80

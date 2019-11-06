@@ -15,4 +15,4 @@ spring:
     name: auth
   profiles: prod
 server:
-  port: 8040
+  port: 80

@@ -18,12 +18,12 @@ spec:
           image: registry.cn-hangzhou.aliyuncs.com/huimiao/technology-svc:latest
           ports:
             - name: http-port
-              containerPort: 8082
+              containerPort: 80
           env:
             - name: spring_profiles_active
               value: prod
             - name: EUREKA_URL
-              value: http://eureka-server:8060/eureka
+              value: http://eureka-server/eureka
             - name: TECHNOLOGY_DS_URL
               value: jdbc:mysql://mysql-svc:3306/technology?useSSL=false
             - name: TECHNOLOGY_DS_USERID
@@ -42,6 +42,5 @@ spec:
     app: technology-svc
   ports:
     - protocol: TCP
-      port: 8082
-      targetPort: 8082
-  type: NodePort
+      port: 80
+      targetPort: 80

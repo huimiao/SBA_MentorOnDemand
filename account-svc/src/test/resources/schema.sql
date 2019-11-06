@@ -30,5 +30,3 @@ CREATE TABLE user_role
     uid BIGINT NOT NULL,
     rid BIGINT NOT NULL
 );
-
-

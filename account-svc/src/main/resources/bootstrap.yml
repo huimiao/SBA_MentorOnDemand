@@ -15,4 +15,4 @@ spring:
     name: account
   profiles: prod
 server:
-  port: 8081
+  port: 80
