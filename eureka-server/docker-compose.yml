@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  account-service:
+    image: registry.cn-hangzhou.aliyuncs.com/huimiao/eureka-server:8
+    ports:
+      - "8060:8060"
+    environment:
+      EUREKA_URL: http://host.docker.internal:8060/eureka
+      EUREKA_PORT: 8060
+    networks:
+      - internal_access
+      - external_access
+
+networks:
+  internal_access:
+    internal: true
+  external_access:
+

@@ -11,6 +11,8 @@ spring:
     show-sql: true
   profiles: dev
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
   client:
     service-url:
       defaultZone: ${EUREKA_URL}
@@ -37,6 +39,8 @@ spring:
     show-sql: true
   profiles: prod
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
   client:
     service-url:
       defaultZone: ${EUREKA_URL}

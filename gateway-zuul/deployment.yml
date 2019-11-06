@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-zuul
+  namespace: sba
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-zuul
+  template:
+    metadata:
+      labels:
+        app: gateway-zuul
+    spec:
+      containers:
+        - name: eureka-server
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/gateway-zuul:1
+          ports:
+            - name: http-port
+              containerPort: 9000
+          env:
+            - name: spring_profiles_active
+              value: prod
+            - name: EUREKA_URL
+              value: http://eureka-server:8060/eureka
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-zuul
+  namespace: sba
+spec:
+  selector:
+    app: gateway-zuul
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+  type: NodePort

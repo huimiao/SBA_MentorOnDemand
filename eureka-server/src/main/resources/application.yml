@@ -1,9 +1,11 @@
 spring:
   profiles: dev
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
   client:
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+      defaultZone: ${EUREKA_URL}
     register-with-eureka: false
     fetch-registry: false
   server:
@@ -13,9 +15,11 @@ eureka:
 spring:
   profiles: prod
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
   client:
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8070/eureka}
+      defaultZone: ${EUREKA_URL}
     register-with-eureka: false
     fetch-registry: false
   server:

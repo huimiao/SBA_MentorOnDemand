@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: technology-svc
+  namespace: sba
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: technology-svc
+  template:
+    metadata:
+      labels:
+        app: technology-svc
+    spec:
+      containers:
+        - name: technology-svc
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/technology-svc:latest
+          ports:
+            - name: http-port
+              containerPort: 8082
+          env:
+            - name: spring_profiles_active
+              value: prod
+            - name: EUREKA_URL
+              value: http://eureka-server:8060/eureka
+            - name: TECHNOLOGY_DS_URL
+              value: jdbc:mysql://mysql-svc:3306/technology?useSSL=false
+            - name: TECHNOLOGY_DS_USERID
+              value: root
+            - name: TECHNOLOGY_DS_PASSWORD
+              value: rootpassword
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: technology
+  namespace: sba
+spec:
+  selector:
+    app: technology-svc
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082
+  type: NodePort

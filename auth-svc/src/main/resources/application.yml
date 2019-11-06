@@ -1,6 +1,8 @@
 spring:
   profiles: dev
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
   client:
     service-url:
       defaultZone: ${EUREKA_URL}
@@ -15,6 +17,8 @@ logging:
 spring:
   profiles: prod
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
   client:
     service-url:
       defaultZone: ${EUREKA_URL}

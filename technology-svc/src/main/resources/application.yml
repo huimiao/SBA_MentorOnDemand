@@ -13,6 +13,8 @@ spring:
       database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
   client:
     service-url:
       defaultZone: ${EUREKA_URL}
@@ -40,6 +42,8 @@ spring:
       database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
   client:
     service-url:
       defaultZone: ${EUREKA_URL}
