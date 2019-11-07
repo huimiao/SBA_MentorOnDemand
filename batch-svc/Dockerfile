@@ -7,3 +7,4 @@ WORKDIR /usr/app
 RUN sh -c 'touch batch-svc-1.0.jar'
 
 ENTRYPOINT ["java", "-jar", "batch-svc-1.0.jar"]
+
