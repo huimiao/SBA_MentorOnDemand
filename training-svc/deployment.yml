@@ -25,7 +25,7 @@ spec:
             - name: EUREKA_URL
               value: http://eureka-server/eureka
             - name: SCHOOL_DS_URL
-              value: jdbc:mysql://mysql-svc:3306/technology?useSSL=false
+              value: jdbc:mysql://mysql-svc:3306/school?useSSL=false
             - name: SCHOOL_DS_USERID
               value: root
             - name: SCHOOL_DS_PASSWORD
