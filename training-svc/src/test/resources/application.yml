@@ -1,0 +1,17 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}
+    register-with-eureka: false
+    fetch-registry: false
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    data: classpath:/import.sql
+    initialization-mode: always
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true

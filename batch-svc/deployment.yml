@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: batch-svc
+  namespace: sba
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: batch-svc
+  template:
+    metadata:
+      labels:
+        app: batch-svc
+    spec:
+      containers:
+        - name: batch-svc
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/auth-svc:{version}
+          ports:
+            - name: http-port
+              containerPort: 80
+          env:
+            - name: spring_profiles_active
+              value: prod
+            - name: EUREKA_URL
+              value: http://eureka-server/eureka
+            - name: SCHOOL_DS_URL
+              value: jdbc:mysql://mysql-svc:3306/technology?useSSL=false
+            - name: SCHOOL_DS_USERID
+              value: root
+            - name: SCHOOL_DS_PASSWORD
+              value: rootpassword
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: batch
+  namespace: sba
+spec:
+  selector:
+    app: batch-svc
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

@@ -3,10 +3,11 @@ pipeline {
   environment {
     GIT_URL = "git@github.com:huimiao/SBA_MentorOnDemand.git"
     GIT_CRED = "0175370e-5e36-457f-8d4a-a4adff3327f3"
-    DOCKER_REPO="registry.cn-hangzhou.aliyuncs.com/huimiao/eureka-server"
+    DOCKER_REPO="registry.cn-hangzhou.aliyuncs.com/huimiao/technology-svc"
     DOCKER_REG="https://registry.cn-hangzhou.aliyuncs.com"
     DOCKER_REG_KEY = "331a6a07-264c-4863-b96d-65384d942cd7"
     dockerImage = ''
+    dockerImage2 = ''
   }
   stages {
     stage('CheckOut Code'){
@@ -23,7 +24,8 @@ pipeline {
       steps{
         script {
             docker.withRegistry( DOCKER_REG, DOCKER_REG_KEY ) {
-	               dockerImage = docker.build(DOCKER_REPO + ":$BUILD_NUMBER", "./eureka-server/")
+	               dockerImage = docker.build(DOCKER_REPO + ":$BUILD_NUMBER", "./technology-svc/")
+                   dockerImage2 = docker.build(DOCKER_REPO + ":latest", "./technology-svc/")
             }
         }
       }
@@ -33,6 +35,7 @@ pipeline {
          script {
            docker.withRegistry( DOCKER_REG, DOCKER_REG_KEY ) {
               dockerImage.push()
+              dockerImage2.push()
            }
          }
        }

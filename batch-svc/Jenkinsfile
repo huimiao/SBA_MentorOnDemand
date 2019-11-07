@@ -3,7 +3,7 @@ pipeline {
   environment {
     GIT_URL = "git@github.com:huimiao/SBA_MentorOnDemand.git"
     GIT_CRED = "0175370e-5e36-457f-8d4a-a4adff3327f3"
-    DOCKER_REPO="registry.cn-hangzhou.aliyuncs.com/huimiao/eureka-server"
+    DOCKER_REPO="registry.cn-hangzhou.aliyuncs.com/huimiao/batch-svc"
     DOCKER_REG="https://registry.cn-hangzhou.aliyuncs.com"
     DOCKER_REG_KEY = "331a6a07-264c-4863-b96d-65384d942cd7"
     dockerImage = ''
@@ -23,7 +23,8 @@ pipeline {
       steps{
         script {
             docker.withRegistry( DOCKER_REG, DOCKER_REG_KEY ) {
-	               dockerImage = docker.build(DOCKER_REPO + ":$BUILD_NUMBER", "./eureka-server/")
+	               dockerImage = docker.build(DOCKER_REPO + ":$BUILD_NUMBER", "./batch-svc/")
+
             }
         }
       }
@@ -37,14 +38,14 @@ pipeline {
          }
        }
     }
-        stage('Deploy Image to K8s') {
-          steps{
-            script {
-              sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' deployment.yml"
-        	  sh 'kubectl apply -f deployment.yaml'
-        	}
-          }
+      stage('Deploy Image to K8s') {
+        steps{
+          script {
+            sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' deployment.yml"
+      	  sh 'kubectl apply -f deployment.yaml'
+      	}
         }
+      }
     stage('Remove Unused docker image') {
       steps{
         sh "docker rmi $DOCKER_REPO:$BUILD_NUMBER"

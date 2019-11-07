@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-
 @RestController
 @RequestMapping("/v1")
 public class TrainingController {
@@ -60,13 +58,6 @@ public class TrainingController {
     @PostMapping(value = "/training/{id}/{username}")
     public BaseResponse proposeATraining(@PathVariable Long id, @PathVariable String username) {
         trainingService.proposeATraining(id, username);
-
-        return BaseResponse.builder().build();
-    }
-
-    @PostMapping(value = "/training/finalize/{id}/{username}")
-    public BaseResponse finalizeTraining(@PathVariable Long id, @PathVariable String username, @RequestParam BigDecimal fee) {
-        trainingService.finalize(id, username, fee);
 
         return BaseResponse.builder().build();
     }
