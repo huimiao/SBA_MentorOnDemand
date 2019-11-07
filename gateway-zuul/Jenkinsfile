@@ -41,8 +41,8 @@ pipeline {
         stage('Deploy Image to K8s') {
           steps{
             script {
-              sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' deployment.yml"
-        	  sh 'kubectl apply -f deployment.yaml'
+              sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' ./gateway-zuul/deployment.yml"
+        	  sh 'kubectl apply -f ./gateway-zuul/deployment.yml'
         	}
           }
         }

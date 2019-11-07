@@ -7,7 +7,6 @@ pipeline {
     DOCKER_REG="https://registry.cn-hangzhou.aliyuncs.com"
     DOCKER_REG_KEY = "331a6a07-264c-4863-b96d-65384d942cd7"
     dockerImage = ''
-    dockerImage2 = ''
   }
   stages {
     stage('CheckOut Code'){
@@ -25,7 +24,6 @@ pipeline {
         script {
             docker.withRegistry( DOCKER_REG, DOCKER_REG_KEY ) {
 	               dockerImage = docker.build(DOCKER_REPO + ":$BUILD_NUMBER", "./technology-svc/")
-                   dockerImage2 = docker.build(DOCKER_REPO + ":latest", "./technology-svc/")
             }
         }
       }
@@ -35,7 +33,6 @@ pipeline {
          script {
            docker.withRegistry( DOCKER_REG, DOCKER_REG_KEY ) {
               dockerImage.push()
-              dockerImage2.push()
            }
          }
        }
@@ -43,8 +40,8 @@ pipeline {
         stage('Deploy Image to K8s') {
           steps{
             script {
-              sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' deployment.yml"
-        	  sh 'kubectl apply -f deployment.yaml'
+              sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' ./technology-svc/deployment.yml"
+        	  sh 'kubectl apply -f ./technology-svc/deployment.yml'
         	}
           }
         }
