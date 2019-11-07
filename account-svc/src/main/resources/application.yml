@@ -21,9 +21,6 @@ eureka:
       defaultZone: ${EUREKA_URL}
     register-with-eureka: true
     fetch-registry: true
-fsd:
-  mod:
-    signing-secret: ${SIGNING_SECRET}
 logging:
   level:
     com:
@@ -54,9 +51,6 @@ eureka:
       ddl-auto: validate
       database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
-fsd:
-  mod:
-    signing-secret: ${SIGNING_SECRET}
 
 logging:
   level:

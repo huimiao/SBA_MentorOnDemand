@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: account-svc
-          image: registry.cn-hangzhou.aliyuncs.com/huimiao/account-svc:30
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/account-svc:31
           ports:
             - name: http-port
               containerPort: 80
@@ -30,7 +30,7 @@ spec:
               value: root
             - name: ACCOUNT_DS_PASSWORD
               value: rootpassword
-            - name: fsd_mod_signing-secret
+            - name: SIGNING_SECRET
               value: qazwsx123
 
 ---

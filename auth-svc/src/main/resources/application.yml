@@ -9,6 +9,9 @@ eureka:
       defaultZone: ${EUREKA_URL}
     register-with-eureka: true
     fetch-registry: true
+fsd:
+  mod:
+    signing-secret: ${SIGNING_SECRET}
 logging:
   level:
     com:
@@ -26,6 +29,9 @@ eureka:
       defaultZone: ${EUREKA_URL}
     register-with-eureka: true
     fetch-registry: true
+fsd:
+  mod:
+    signing-secret: ${SIGNING_SECRET}
 logging:
   level:
     com:
