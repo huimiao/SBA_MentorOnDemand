@@ -1,6 +1,6 @@
 FROM java:8-jdk-alpine
 
-COPY ./target/auth-svc-1.0.jar /usr/app/
+COPY ./target/batch-svc-1.0.jar /usr/app/
 
 WORKDIR /usr/app
 
