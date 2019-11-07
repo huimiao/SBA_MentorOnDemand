@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: registry.cn-hangzhou.aliyuncs.com/huimiao/front-end:46
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/front-end:{version}
           ports:
             - name: http-port
               containerPort: 80
