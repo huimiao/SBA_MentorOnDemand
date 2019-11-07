@@ -25,7 +25,7 @@ public class PaymentTask {
     @Autowired
     private StudentTrainingRepository studentTrainingRepository;
 
-    @Scheduled(cron = "00 14 17 * * *")
+    @Scheduled(cron = "00 00 12 * * *")
     @Transactional
     public void batchpoollist() {
 
