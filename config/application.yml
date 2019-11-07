@@ -8,6 +8,4 @@ TECHNOLOGY_DS_PASSWORD: rootpassword
 SCHOOL_DS_URL: jdbc:mysql://localhost:3306/school?useSSL=false
 SCHOOL_DS_USERID: root
 SCHOOL_DS_PASSWORD: rootpassword
-fsd:
-  mod:
-    signing-secret: qazwsx123
+SIGNING_SECRET: qazwsx123
