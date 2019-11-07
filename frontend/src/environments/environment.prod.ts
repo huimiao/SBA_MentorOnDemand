@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  gatewayurl: 'http://www.huihuimiao.com:9000'
+  gatewayurl: 'http://localhost:30001'
 };

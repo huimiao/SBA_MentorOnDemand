@@ -15,10 +15,10 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: registry.cn-hangzhou.aliyuncs.com/huimiao/front-end:latest
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/front-end:{version}
           ports:
             - name: http-port
-              containerPort: 8080
+              containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -30,6 +30,7 @@ spec:
     app: frontend
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 80
+      targetPort: 80
+      nodePort: 30000
   type: NodePort

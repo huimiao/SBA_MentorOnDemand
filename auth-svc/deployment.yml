@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: auth-svc
-          image: registry.cn-hangzhou.aliyuncs.com/huimiao/auth-svc:10
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/auth-svc:{version}
           ports:
             - name: http-port
               containerPort: 80
