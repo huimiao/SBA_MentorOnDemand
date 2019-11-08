@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: batch-svc
-          image: registry.cn-hangzhou.aliyuncs.com/huimiao/auth-svc:{version}
+          image: registry.cn-hangzhou.aliyuncs.com/huimiao/batch-svc:{version}
           ports:
             - name: http-port
               containerPort: 80
