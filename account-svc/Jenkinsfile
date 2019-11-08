@@ -42,10 +42,12 @@ pipeline {
       steps{
         script {
         	sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' ./account-svc/deployment.yml"
-	   		sh 'kubectl apply -f ./account-svc/deployment.yml'
-		      }
+        	withKubeConfig([credentialsId: 'k8s', serverUrl: 'http://localhost:8001/']) {
+	   		    sh 'kubectl apply -f ./account-svc/deployment.yml'
+	   		}
 		}
-		}
+	  }
+    }
     stage('Remove Unused docker image') {
       steps{
         sh "docker rmi $DOCKER_REPO:$BUILD_NUMBER"

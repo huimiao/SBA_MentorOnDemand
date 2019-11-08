@@ -41,7 +41,9 @@ pipeline {
           steps{
             script {
               sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' ./technology-svc/deployment.yml"
-        	  sh 'kubectl apply -f ./technology-svc/deployment.yml'
+        	  withKubeConfig([credentialsId: 'k8s', serverUrl: 'http://localhost:8001/']) {
+                            sh 'kubectl apply -f ./technology-svc/deployment.yml'
+                          }
         	}
           }
         }

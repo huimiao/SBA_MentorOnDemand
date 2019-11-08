@@ -24,7 +24,6 @@ pipeline {
         script {
             docker.withRegistry( DOCKER_REG, DOCKER_REG_KEY ) {
 	               dockerImage = docker.build(DOCKER_REPO + ":$BUILD_NUMBER", "./training-svc/")
-
             }
         }
       }
@@ -42,7 +41,9 @@ pipeline {
       steps{
         script {
           sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' ./training-svc/deployment.yml"
-    	  sh 'kubectl apply -f ./training-svc/deployment.yml'
+    	  withKubeConfig([credentialsId: 'k8s', serverUrl: 'http://localhost:8001/']) {
+                        sh 'kubectl apply -f ./training-svc/deployment.yml'
+                      }
     	}
       }
     }

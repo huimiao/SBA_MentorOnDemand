@@ -42,7 +42,9 @@ pipeline {
           steps{
             script {
               sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' ./gateway-zuul/deployment.yml"
-        	  sh 'kubectl apply -f ./gateway-zuul/deployment.yml'
+        	  withKubeConfig([credentialsId: 'k8s', serverUrl: 'http://localhost:8001/']) {
+                                      sh 'kubectl apply -f ./gateway-zuul/deployment.yml'
+                                    }
         	}
           }
         }

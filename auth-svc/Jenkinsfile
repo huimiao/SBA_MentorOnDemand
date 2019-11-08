@@ -42,8 +42,10 @@ pipeline {
         steps{
           script {
             sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' ./auth-svc/deployment.yml"
-      	  sh 'kubectl apply -f ./auth-svc/deployment.yml'
-      	}
+      	    withKubeConfig([credentialsId: 'k8s', serverUrl: 'http://localhost:8001/']) {
+          	    sh 'kubectl apply -f ./auth-svc/deployment.yml'
+          	}
+      	  }
         }
       }
     stage('Remove Unused docker image') {
