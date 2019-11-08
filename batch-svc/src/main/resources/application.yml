@@ -6,7 +6,7 @@ spring:
 spring:
   profiles: dev
   datasource:
-    url: ${SCHOOL_DS_URL:jdbc:mysql://localhost:3306/account?useSSL=false}
+    url: ${SCHOOL_DS_URL:jdbc:mysql://localhost:3306/school?useSSL=false}
     username: ${SCHOOL_DS_USERID:root}
     password: ${SCHOOL_DS_PASSWORD:rootpassword}
     driver-class-name: com.mysql.jdbc.Driver
@@ -38,7 +38,7 @@ server:
 spring:
   profiles: prod
   datasource:
-    url: ${SCHOOL_DS_URL:jdbc:mysql://localhost:3306/account?useSSL=false}
+    url: ${SCHOOL_DS_URL:jdbc:mysql://localhost:3306/school?useSSL=false}
     username: ${SCHOOL_DS_USERID:root}
     password: ${SCHOOL_DS_PASSWORD:rootpassword}
     driver-class-name: com.mysql.jdbc.Driver
