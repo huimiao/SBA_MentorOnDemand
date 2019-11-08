@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-	  GIT_URL = "git@github.com:huimiao/FSD.git"
+	  GIT_URL = "git@github.com:huimiao/SBA_MentorOnDemand.git"
 		GIT_CRED = "0175370e-5e36-457f-8d4a-a4adff3327f3"
 		DOCKER_REPO="registry.cn-hangzhou.aliyuncs.com/huimiao/front-end"
 		DOCKER_REG="https://registry.cn-hangzhou.aliyuncs.com"
@@ -17,10 +17,10 @@ pipeline {
               }
         stage('Angular Build'){
         	steps{
-              sh 'cd SBA_MentorOnDemand/frontend/ && mkdir -p server/public'
-              sh 'cd SBA_MentorOnDemand/frontend/ && pwd'
-              sh 'cd SBA_MentorOnDemand/frontend/ && npm install'
-        	  sh 'cd SBA_MentorOnDemand/frontend/ && npm run ng build --configuration=production'
+              sh 'cd frontend/ && mkdir -p server/public'
+              sh 'cd frontend/ && pwd'
+              sh 'cd frontend/ && npm install'
+        	  sh 'cd frontend/ && npm run ng build --configuration=production'
         	}
 
         }
@@ -29,7 +29,7 @@ pipeline {
           steps{
 	        script {
 	           docker.withRegistry( DOCKER_REG, DOCKER_REG_KEY ) {
-	               dockerImage = docker.build(DOCKER_REPO + ":$BUILD_NUMBER", "./SBA_MentorOnDemand/frontend/")
+	               dockerImage = docker.build(DOCKER_REPO + ":$BUILD_NUMBER", "./frontend/")
 	           }
 	        }
 	      }
@@ -43,5 +43,21 @@ pipeline {
 		        }
 		      }
 		}
+		stage('Deploy Image to K8s') {
+        steps{
+          script {
+            sh "sed -i 's/{version}/" + BUILD_NUMBER + "/g' ./frontend/deployment.yml"
+      	  sh 'kubectl apply -f ./frontend/deployment.yml'
+      	}
+        }
+      }
+stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $DOCKER_REPO:$BUILD_NUMBER"
+      }
+  }
+
    }
+
+
 }
